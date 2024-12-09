@@ -1,0 +1,93 @@
+input.onGesture(Gesture.Shake, function () {
+    light.showAnimation(light.rainbowAnimation, 500)
+    initPixel()
+})
+function initPixel () {
+    light.setAll(0x000000)
+    pixel = 0
+    pixel2 = Math.randomRange(3, 6)
+    pixel3 = Math.randomRange(7, 9)
+    mvPixel(0, 1)
+    mvPixel(0, 2)
+    mvPixel(0, 3)
+}
+function mvPixel (dir: number, pxl: number) {
+    if (pxl == 1) {
+        npixel = pixel + dir
+        if (npixel < 0) {
+            npixel = 9
+        }
+        if (npixel > 9) {
+            npixel = 0
+        }
+        light.setPixelColor(pixel, 0x000000)
+        light.setPixelColor(npixel, 0x00ff00)
+        pixel = npixel
+    }
+    if (pxl == 2) {
+        npixel = pixel2 + dir
+        if (npixel < 0) {
+            npixel = 9
+        }
+        if (npixel > 9) {
+            npixel = 0
+        }
+        light.setPixelColor(pixel2, 0x000000)
+        light.setPixelColor(npixel, 0xff0000)
+        pixel2 = npixel
+    }
+    if (pxl == 3) {
+        npixel = pixel3 + dir
+        if (npixel < 0) {
+            npixel = 9
+        }
+        if (npixel > 9) {
+            npixel = 0
+        }
+        light.setPixelColor(pixel3, 0x000000)
+        light.setPixelColor(npixel, 0x0000ff)
+        pixel3 = npixel
+    }
+}
+function init () {
+    North = [-1, -1, -1, -1, -1, 1, 1, 1, 1, 1]
+    South = [1, 1, 1, 1, 1, -1, -1, -1, -1, -1]
+    East = [-1, -1, -1, 1, 1, 1, 1, 1, -1, -1]
+    West = [1, 1, 1, -1, -1, -1, -1, -1, 1, 1]
+}
+input.buttonB.onEvent(ButtonEvent.Click, function () {
+    mvPixel(South[pixel], 1)
+})
+input.buttonA.onEvent(ButtonEvent.Click, function () {
+    mvPixel(North[pixel], 1)
+})
+input.onGesture(Gesture.TiltDown, function () {
+    mvPixel(North[pixel], 1)
+    mvPixel(North[pixel2], 2)
+    mvPixel(North[pixel3], 3)
+})
+input.onGesture(Gesture.TiltUp, function () {
+    mvPixel(South[pixel], 1)
+    mvPixel(South[pixel2], 2)
+    mvPixel(South[pixel3], 3)
+})
+input.onGesture(Gesture.TiltRight, function () {
+    mvPixel(East[pixel], 1)
+    mvPixel(East[pixel2], 2)
+    mvPixel(East[pixel3], 3)
+})
+input.onGesture(Gesture.TiltLeft, function () {
+    mvPixel(West[pixel], 1)
+    mvPixel(West[pixel2], 2)
+    mvPixel(West[pixel3], 3)
+})
+let West: number[] = []
+let East: number[] = []
+let South: number[] = []
+let North: number[] = []
+let npixel = 0
+let pixel3 = 0
+let pixel2 = 0
+let pixel = 0
+init()
+initPixel()
