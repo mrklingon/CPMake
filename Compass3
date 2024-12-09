@@ -57,9 +57,13 @@ function init () {
 }
 input.buttonB.onEvent(ButtonEvent.Click, function () {
     mvPixel(South[pixel], 1)
+    mvPixel(South[pixel2], 2)
+    mvPixel(South[pixel3], 3)
 })
 input.buttonA.onEvent(ButtonEvent.Click, function () {
     mvPixel(North[pixel], 1)
+    mvPixel(North[pixel2], 2)
+    mvPixel(North[pixel3], 3)
 })
 input.onGesture(Gesture.TiltDown, function () {
     mvPixel(North[pixel], 1)
